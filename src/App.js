@@ -6,43 +6,75 @@ import './App.css';
 
 class App extends React.Component {
   state = {
-    name: '',
-    username: '',
-    url: '',
-    avatar: '',
-    bio: '',
-    hireable: true,
-    location: '',
-    followers: 0
+    gitHubUser: {},
+    followers: []
   }
   
   componentDidMount() {
     axios
-    .get('https://api.github.com/users/RashaMou')
+    .get('https://api.github.com/users/xarfo')
     .then(res => {
-      console.log(res)
       this.setState({
-        name: res.data.name,
-        username: res.data.login,
-        url: res.data.html_url,
-        avatar: res.data.avatar_url,
-        bio: res.data.bio,
-        hireable: res.data.hireable,
-        location: res.data.location,
-        followers: res.data.followers
+        gitHubUser:res.data
       })
-
     })
-    .catch(err => {
+      .catch(err => {
+        console.log('Error', err)
+      })
+      
+
+      axios
+        .get(`https://api.github.com/users/${this.state.gitHubUser.login}/followers`)
+        .then(res => {
+          this.setState({ followers: res.data
+          })
+        })
+        .catch(err => {
+          console.log('Error', err)
+        })
+    
+  }
+
+ displayFollower = (follower) => {
+   this.setState({ // this causes a re-render, so we can call componentDidUpdate to do something with the new state
+     gitHubUser: follower
+   })
+ }
+
+ componentDidUpdate(prevProps, prevState) {
+   if(prevState.gitHubUser.login !== this.state.gitHubUser.login) {
+     axios
+     .get(`https://api.github.com/users/${this.state.gitHubUser.login}`)
+     .then(res => {
+       console.log('new state', res.data)
+      this.setState({
+        gitHubUser:res.data
+      })
+    })
+     .catch(err => {
       console.log('Error', err)
     })
-  }
+    axios
+     .get(`https://api.github.com/users/${this.state.gitHubUser.login}/followers`)
+     .then(res => {
+      this.setState({
+        followers: res.data
+      })
+    })
+     .catch(err => {
+      console.log('Error', err)
+    })
+
+
+   }  
+ }
+
 
   render() {
     return (
       <div className="App">
-        <UserCard userData={this.state}/>
-        {/* <FollowerList /> */}
+        <UserCard userData={this.state.gitHubUser}/>
+        <FollowerList followers={this.state.followers} displayFollower={this.displayFollower}/>
       </div>
     );
   }

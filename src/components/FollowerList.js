@@ -1,15 +1,16 @@
-// import React from 'react';
-// import FollowerCard from './FollowerCard';
+import React from 'react';
+import FollowerCard from './FollowerCard';
 
-// class FollowerList extends React.Component {
-// constructor() {
-// super()
-// }
-// render() {
-// return (
-// )
-// }
-// }
+const FollowerList = (props) => {
+  return (
+    <div>
+      {props.followers.map(follower => {
+        return (
+          <FollowerCard followerData={follower} key={follower.id} displayFollower={props.displayFollower}/>
+        )
+      })}
+    </div>
+  )
+}
 
-// export default FollowerList;
-
+export default FollowerList;
