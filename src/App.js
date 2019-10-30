@@ -20,7 +20,7 @@ class App extends React.Component {
   
   componentDidMount() {
     axios
-    .get('https://api.github.com/users/xarfo')
+    .get('https://api.github.com/users/RashaMou')
     .then(res => {
       this.setState({
         gitHubUser:res.data
