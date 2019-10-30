@@ -94,7 +94,7 @@ class App extends React.Component {
       console.log('search res', res.data)
       this.setState({
         searchResults: res.data.items, 
-        searchTerm: '' //why doesn't this clear the form
+        searchTerm: '' 
       })
       history.push('/searchresults')
     })
@@ -106,7 +106,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Header handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
+        <Header handleChange={this.handleChange} handleSubmit={this.handleSubmit} searchTerm={this.state.searchTerm}/>
         <Route exact path='/' render={(props) => <Home {...props} userData={this.state.gitHubUser} followers={this.state.followers} displaySelected={this.displaySelected}/>}
         />
         <Route path='/searchresults' render={(props) => <SearchResults {...props} searchResults={this.state.searchResults} displaySelected={this.displaySelected} searchTerm={this.state.searchTerm}/>} />
