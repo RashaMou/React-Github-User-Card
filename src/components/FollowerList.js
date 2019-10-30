@@ -6,7 +6,7 @@ const FollowerList = (props) => {
     <div>
       {props.followers.map(follower => {
         return (
-          <FollowerCard followerData={follower} key={follower.id} displayFollower={props.displayFollower}/>
+          <FollowerCard followerData={follower} key={follower.id} displaySelected={props.displaySelected}/>
         )
       })}
     </div>

@@ -1,13 +1,21 @@
 import React from 'react';
 import axios from 'axios';
-import UserCard from './components/UserCard';
-import FollowerList from './components/FollowerList';
-import './App.css';
+import { Route } from 'react-router-dom';
+import Home from './components/Home';
+import Header from './components/Header';
+import SearchResults from './components/SearchResults';
+import history from './history';
+
 
 class App extends React.Component {
-  state = {
-    gitHubUser: {},
-    followers: []
+  constructor() {
+    super()
+    this.state = {
+      gitHubUser: {},
+      followers: [],
+      searchTerm: '',
+      searchResults: []
+    }
   }
   
   componentDidMount() {
@@ -22,7 +30,6 @@ class App extends React.Component {
         console.log('Error', err)
       })
       
-
       axios
         .get(`https://api.github.com/users/${this.state.gitHubUser.login}/followers`)
         .then(res => {
@@ -35,18 +42,19 @@ class App extends React.Component {
     
   }
 
- displayFollower = (follower) => {
+  // function to change gitHubUser to clicked on follower
+ displaySelected = (selected) => {
    this.setState({ // this causes a re-render, so we can call componentDidUpdate to do something with the new state
-     gitHubUser: follower
+     gitHubUser: selected
    })
  }
 
+ // displays new gitHubUser and followers on state change
  componentDidUpdate(prevProps, prevState) {
    if(prevState.gitHubUser.login !== this.state.gitHubUser.login) {
      axios
      .get(`https://api.github.com/users/${this.state.gitHubUser.login}`)
      .then(res => {
-       console.log('new state', res.data)
       this.setState({
         gitHubUser:res.data
       })
@@ -69,12 +77,37 @@ class App extends React.Component {
    }  
  }
 
+ //search onChange
+ handleChange = (e) => {
+  this.setState({
+    searchTerm: e.target.value
+  })
 
+ }
+
+ //search handleSubmit changes gitHubUser or returns no user found 
+ handleSubmit =(e) => {
+   e.preventDefault();
+   axios
+    .get(`https://api.github.com/search/users?q=${this.state.searchTerm}`)
+    .then(res => {
+      console.log('search res', res.data.items)
+      this.setState({searchResults: res.data.items})
+      history.push('/searchresults')
+    })
+   .catch(err => {
+      console.log('Error', err.response)
+   })  
+   
+ }
   render() {
     return (
       <div className="App">
-        <UserCard userData={this.state.gitHubUser}/>
-        <FollowerList followers={this.state.followers} displayFollower={this.displayFollower}/>
+        <Header handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
+        <Route exact path='/' render={(props) => <Home {...props} userData={this.state.gitHubUser} followers={this.state.followers} displaySelected={this.displaySelected}/>}
+        />
+        <Route path='/searchresults' render={(props) => <SearchResults {...props} searchResults={this.state.searchResults} displaySelected={this.displaySelected}/>} />
+
       </div>
     );
   }

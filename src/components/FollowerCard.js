@@ -8,7 +8,7 @@ class FollowerCard extends React.Component {
   render() {
     return (
       <div className='follower-card' 
-      onClick={() => this.props.displayFollower(this.props.followerData)}>
+      onClick={() => this.props.displaySelected(this.props.followerData)}>
         <h3>{this.props.followerData.login}</h3>
         <img src={this.props.followerData.avatar_url} alt={this.props.followerData.login} />
         <a href={this.props.followerData.html_url}>GitHub</a>
