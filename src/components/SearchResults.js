@@ -3,17 +3,21 @@ import { Link } from 'react-router-dom';
 
 const SearchResults = (props) => {
   return(
-    <div className='search-results'>
+    <div className='search-container'>
+      <ul>
       {props.searchResults.map(result => {
         return(
-          <div>
-            <img src={result.avatar_url} alt={result.login}/>
-            <p>{result.login}</p>
-            <Link to='/'><a onClick={() => props.displaySelected(result)}>View User Card</a></Link>
-            <a href={result.html_url}>GitHub</a>
-          </div>
+          <Link to='/'>
+            <li onClick={() => {
+              props.displaySelected(result)}}>
+              <img src={result.avatar_url} className='results-img' alt={result.login}/>  
+              <p className='is-size-4'>
+              @{result.login}</p>
+            </li>
+          </Link>
         )
       })}
+      </ul>
     </div>
   )
 }

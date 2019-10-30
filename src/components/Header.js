@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
   constructor(props) {
@@ -8,17 +9,21 @@ class Header extends React.Component {
 
   render() {
     return (
-      <header>
-        <h1>GitHub User Database</h1>
-        <form onSubmit={this.props.handleSubmit}>
-          <input 
-            type='text'
-            name='searchTerm'
-            // value={this.props.gitHubUser.login}
-            onChange={this.props.handleChange}
-          />
-          <button type='submit'>Search</button>
-        </form>
+      <header className='hero is-bold is-primary'>
+        <div className='hero-body'>
+          <Link to="/"><h1 className='title is-1'>GitHub User Database</h1></Link>
+          <form onSubmit={this.props.handleSubmit}>
+            <input 
+              className='input is-medium'
+              type='text'
+              name='searchTerm'
+              onChange={this.props.handleChange}
+              placeholder="...search for user"
+              value={this.props.searchTerm}
+            />
+            <button type='submit' className='button is-medium'>Go!</button>
+          </form>
+        </div>
       </header>
     )
   }

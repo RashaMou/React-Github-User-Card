@@ -56,7 +56,7 @@ class App extends React.Component {
      .get(`https://api.github.com/users/${this.state.gitHubUser.login}`)
      .then(res => {
       this.setState({
-        gitHubUser:res.data
+        gitHubUser:res.data,
       })
     })
      .catch(err => {
@@ -85,14 +85,17 @@ class App extends React.Component {
 
  }
 
- //search handleSubmit changes gitHubUser or returns no user found 
+ //search handleSubmit 
  handleSubmit =(e) => {
    e.preventDefault();
    axios
     .get(`https://api.github.com/search/users?q=${this.state.searchTerm}`)
     .then(res => {
-      console.log('search res', res.data.items)
-      this.setState({searchResults: res.data.items})
+      console.log('search res', res.data)
+      this.setState({
+        searchResults: res.data.items, 
+        searchTerm: '' //why doesn't this clear the form
+      })
       history.push('/searchresults')
     })
    .catch(err => {
@@ -106,7 +109,7 @@ class App extends React.Component {
         <Header handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
         <Route exact path='/' render={(props) => <Home {...props} userData={this.state.gitHubUser} followers={this.state.followers} displaySelected={this.displaySelected}/>}
         />
-        <Route path='/searchresults' render={(props) => <SearchResults {...props} searchResults={this.state.searchResults} displaySelected={this.displaySelected}/>} />
+        <Route path='/searchresults' render={(props) => <SearchResults {...props} searchResults={this.state.searchResults} displaySelected={this.displaySelected} searchTerm={this.state.searchTerm}/>} />
 
       </div>
     );

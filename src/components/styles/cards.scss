@@ -1,48 +1,96 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+.user.card {
+  margin: 0 auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+  .card-header {
+    margin-bottom: 20px;
+  
+    h2 {
+      text-align: center;
+      padding: 8px;
+      font-size: 1.2rem;  
+      font-weight: bold;
+    }
+  }
+
+  .card-info {
+    padding-bottom: 20px;
+    a, p {
+      margin: 10px;
+    }
+    a {
+      padding-bottom: 8px;
+    }
+  
+    p:nth-child(2) {
+      padding-top: 10px;
+     }
+  
+     .bold {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+     
+  }
 }
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+
+.follower-list.container, .search-results {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 20px;
+  column-gap: 20px;
+  justify-content: center;
 }
-body {
-	line-height: 1;
+
+.follower-card.card {
+  margin: 0;
+  width: 20%;
+  padding: 8px;
+  &:hover {
+    border: 1px solid orange;
+    cursor: pointer;
+  }
+  h3 {
+    padding: 8px 0 8px 0;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  img {
+    padding-bottom: 8px;
+  }
+
+  a {
+    margin-left: 10px;
+  }
 }
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+
+.search-container {
+  width: 70%;
+  margin: 0 auto;
+  padding-top:20px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  
+  li {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid lightgrey;
+    margin-bottom: 15px;
+
+    p:hover {
+      cursor: pointer;
+      color: darkmagenta;
+    }
+
+    .results-img {
+      width: 10%;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+  }
+
 }

@@ -6,7 +6,7 @@ const Home = (props) => {
   return (
     <div>
       <UserCard userData={props.userData}/>
-      <FollowerList followers={props.followers} displaySelected={props.displaySelected}/>
+        <FollowerList followers={props.followers} displaySelected={props.displaySelected}/>
     </div>
   )
 }
